@@ -47,12 +47,30 @@ const reverseStr = str => {
 
 const checkMatchingLeaves = obj => {
   // return true if every property on `obj` is the same
-  // otherwise return false
+  // // otherwise return false
+  // let singlevalue = [];
+  // const objkeys = Object.keys(obj);
+  // for (let i = 0; i < objkeys.length; i++) {
+  //   if (typeof obj[objkeys[i]] === 'object'){
+  //     checkMatchingLeaves(obj[objkeys[i]]);
+  //   } else {
+
+  //   }
+  // }
 };
 
 const flatten = elements => {
   // Flattens a nested array (the nesting can be to any depth).
   // Example: flatten([1, [2], [3, [[4]]]]); => [1, 2, 3, 4];
+  let flat = [];
+  for (let i = 0; i < elements.length; i++) {
+    if (typeof elements[i] === 'object') {
+     flat = flat.concat(flatten(elements[i]));
+    } else {
+      flat.push(elements[i]);
+    }
+  }
+  return flat;
 };
 
 module.exports = {
