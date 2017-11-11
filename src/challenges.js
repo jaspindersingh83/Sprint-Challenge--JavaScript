@@ -48,15 +48,29 @@ const reverseStr = str => {
 const checkMatchingLeaves = obj => {
   // return true if every property on `obj` is the same
   // // otherwise return false
-  // let singlevalue = [];
-  // const objkeys = Object.keys(obj);
-  // for (let i = 0; i < objkeys.length; i++) {
-  //   if (typeof obj[objkeys[i]] === 'object'){
-  //     checkMatchingLeaves(obj[objkeys[i]]);
-  //   } else {
-
-  //   }
-  // }
+  const uniquevals = [];
+  const getuniquevalues = object => {
+    let allvals = [];
+    const objkeys = Object.keys(object);
+    for (let i = 0; i < objkeys.length; i++) {
+      if (typeof object[objkeys[i]] === 'object') {
+        allvals = allvals.concat(getuniquevalues(object[objkeys[i]]));
+      } else {
+        allvals.push(object[objkeys[i]]);
+      }
+    }
+    return allvals;
+  };
+  const arr = getuniquevalues(obj);
+  for (let i = 0; i < arr.length; i++) {
+    if (uniquevals.includes(arr[i]) === false) {
+      uniquevals.push(arr[i]);
+    }
+  }
+  if (uniquevals.length > 1) {
+    return false;
+  }
+  return true;
 };
 
 const flatten = elements => {
@@ -65,7 +79,7 @@ const flatten = elements => {
   let flat = [];
   for (let i = 0; i < elements.length; i++) {
     if (typeof elements[i] === 'object') {
-     flat = flat.concat(flatten(elements[i]));
+      flat = flat.concat(flatten(elements[i]));
     } else {
       flat.push(elements[i]);
     }
